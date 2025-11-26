@@ -1,0 +1,141 @@
+# Guía Rápida de Inicio - Control Trabajos Talla
+
+## 🚀 Inicio Rápido (5 minutos)
+
+### Opción 1: Abrir directamente (Recomendado para comenzar)
+
+1. Haz doble clic en **`index.html`**
+2. Se abrirá en tu navegador predeterminado
+3. ¡Listo! La aplicación ya está funcionando
+
+### Opción 2: Usar Servidor Local
+
+1. Haz doble clic en **`iniciar_servidor.bat`**
+2. Se abrirá una ventana de PowerShell
+3. Abre tu navegador y ve a: `http://localhost:8000`
+4. ¡Listo!
+
+---
+
+## 📋 Primer Uso - Cargar Datos de Prueba
+
+1. Abre **`cargar_datos_prueba.html`** en el navegador
+2. Haz clic en "Cargar Datos de Ejemplo"
+3. Vuelve a la aplicación principal (`index.html`)
+4. Verás datos de ejemplo en todas las secciones
+
+---
+
+## 📁 Archivos Incluidos
+
+| Archivo | Descripción |
+|---------|-------------|
+| **index.html** | Página principal (abre aquí) |
+| **styles.css** | Estilos y diseño |
+| **app.js** | Lógica de la aplicación |
+| **README.md** | Documentación completa |
+| **cargar_datos_prueba.html** | Cargador de datos de ejemplo |
+| **servidor.ps1** | Servidor local (PowerShell) |
+| **iniciar_servidor.bat** | Batería para iniciar servidor |
+
+---
+
+## ⌨️ Flujo Principal
+
+### 1️⃣ REGISTRO (Sección por defecto)
+```
+1. Escanea código de barras (o escribe manualmente)
+2. La fecha y hora se cargan automáticamente
+3. Selecciona turno (T1 o T2)
+4. Ingresa cantidades
+5. Haz clic en "Registrar Trabajo"
+```
+
+### 2️⃣ LISTADO
+```
+1. Ve a la pestaña "LISTADO"
+2. Filtra por mes o fecha específica
+3. Elimina registros si es necesario
+```
+
+### 3️⃣ REPORTES
+```
+1. Ve a la pestaña "REPORTES"
+2. Selecciona el período (Semana/Mes/Año)
+3. Genera reporte
+4. Imprime o descarga como CSV
+```
+
+---
+
+## 🛠️ Configuración Adicional
+
+### Cambiar Puerto del Servidor
+Si el puerto 8000 está en uso, edita `servidor.ps1`:
+```
+Línea 5: $puerto = 8000  ← Cambia este número (ej: 3000, 5000)
+```
+
+### Usar en Red Local
+Para acceder desde otra PC en tu red:
+1. Ejecuta el servidor (`iniciar_servidor.bat`)
+2. Obtén tu IP: abre CMD y escribe `ipconfig`
+3. En otra PC, abre: `http://[TU-IP]:8000`
+
+---
+
+## 💾 Copia de Seguridad de Datos
+
+Los datos se guardan localmente en tu navegador. Para hacer backup:
+
+### Semanal:
+1. Ve a REPORTES → Reporte Semanal
+2. Haz clic en "Descargar CSV"
+3. Guarda el archivo
+
+### Mensual:
+1. Ve a REPORTES → Reporte Mensual
+2. Haz clic en "Descargar CSV"
+3. Guarda el archivo
+
+---
+
+## ❓ Preguntas Frecuentes
+
+**P: ¿Por qué no veo los datos?**
+- A: Probablemente es tu primer uso. Carga datos de prueba usando `cargar_datos_prueba.html`
+
+**P: ¿Los datos se guardan?**
+- A: Sí, automáticamente en tu navegador (IndexedDB)
+
+**P: ¿Qué pasa si cierro el navegador?**
+- A: Los datos se mantienen. Se pierden solo si limpias el caché
+
+**P: ¿Puedo usar código de barras?**
+- A: Sí, cualquier lector de códigos de barras USB funcionará
+
+**P: ¿Funciona sin internet?**
+- A: Sí, completamente offline
+
+---
+
+## 🎯 Siguientes Pasos
+
+1. ✅ Abre `index.html` en el navegador
+2. ✅ Carga datos de prueba (`cargar_datos_prueba.html`)
+3. ✅ Explora las 3 secciones principales
+4. ✅ Genera un reporte de prueba
+5. ✅ Prueba descargar en CSV o imprimir
+
+---
+
+## 📞 Soporte
+
+Si algo no funciona:
+1. Asegúrate de que todos los archivos estén en la misma carpeta
+2. Usa un navegador moderno (Chrome, Firefox, Edge, Safari)
+3. Revisa que JavaScript esté habilitado
+
+---
+
+**¡Disfruta usando Control Trabajos Talla!** 🎉

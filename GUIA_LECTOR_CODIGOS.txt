@@ -1,0 +1,211 @@
+# Guía de Lectura de Códigos de Barras
+
+## 🔧 Configuración del Lector
+
+### Requisitos
+- Lector de códigos de barras USB (cualquier modelo compatible)
+- Conexión USB a la computadora
+- Navegador abierto en la aplicación
+
+### Instalación
+
+La mayoría de lectores USB son "plug and play":
+
+1. **Conecta el lector USB** a tu computadora
+2. Espera 2-3 segundos mientras se detecta automáticamente
+3. ¡Listo! El sistema operativo lo reconocerá
+
+**Nota:** No necesitas software adicional. Windows detectará automáticamente el dispositivo.
+
+---
+
+## 📋 Uso del Lector con la Aplicación
+
+### Flujo de Trabajo Típico
+
+```
+1. Abre index.html
+2. Ve a la sección "REGISTRO"
+3. El cursor estará en el campo "Código de Barras"
+4. Apunta el lector al código de barras
+5. El código se ingresará automáticamente
+6. El cursor se moverá al siguiente campo
+7. Repite para cada escaneo
+```
+
+### Escaneo Rápido (Recomendado)
+
+Para una entrada rápida sin hacer clic entre escaneos:
+
+```
+1. Completa MANUALMENTE:
+   - Fecha (automática)
+   - Hora (automática)
+   - Turno (una sola vez, se mantiene)
+   - T1 y T2 (se pueden dejar en 0 o completar)
+
+2. Luego SOLO escanea códigos de barras
+
+3. Cada escaneo registra un trabajo automaticamente
+   (Modifica app.js línea 250-260 para activar auto-registro)
+```
+
+---
+
+## 🔧 Configuración Avanzada
+
+### Auto-Registro al Escanear (Opcional)
+
+Para que el sistema registre automáticamente al escanear, 
+edita `app.js` y reemplaza el método `handleRegistro`:
+
+```javascript
+// Busca esta función en app.js (alrededor de línea 250)
+async handleRegistro(e) {
+    // Modifica aquí si deseas auto-registro
+    // Contacta al desarrollador para esta funcionalidad
+}
+```
+
+### Cambiar el Carácter de Terminación
+
+Algunos lectores envían caracteres especiales al final (Tab, Enter).
+Esto está habilitado por defecto en la aplicación.
+
+---
+
+## 🧪 Prueba del Lector
+
+### Prueba Rápida
+
+1. Abre una aplicación de prueba (Bloc de notas)
+2. Haz clic en el área de texto
+3. Escanea un código
+4. Deberías ver el código en el editor
+
+### Prueba en la Aplicación
+
+1. Abre index.html
+2. Ve a REGISTRO
+3. Escanea un código de barras de prueba
+4. Completa los otros campos
+5. Verifica que se registre correctamente
+
+---
+
+## 📊 Formatos de Código de Barras Soportados
+
+La aplicación acepta cualquier formato de código de barras estándar:
+
+- **UPC** (Universal Product Code)
+- **EAN** (European Article Number)
+- **CODE-128** (Muy común en industria)
+- **QR Code** (Si tu lector los soporta)
+- **Cualquier código que genere números o caracteres**
+
+---
+
+## ⚙️ Solución de Problemas
+
+### P: El lector no escribe nada
+- Verifica que esté conectado (deberías ver luz LED)
+- Prueba en otra computadora
+- Intenta conectar en otro puerto USB
+- Actualiza los drivers USB de Windows
+
+### P: El código no se ingresa en el campo correcto
+- Asegúrate de que el cursor esté en el campo de "Código de Barras"
+- Haz clic en el campo antes de escanear
+
+### P: Se ingresa código pero falta información
+- Algunos lectores no incluyen dígito verificador
+- Esto es normal, la app funciona así
+
+### P: El código se ingresa muy rápido/lento
+- Esto depende del lector, es normal
+- La app procesa automáticamente
+
+### P: Se ingresa código pero no se registra
+- Completa todos los campos obligatorios
+- Revisa que haya seleccionado un turno
+- El campo de código no puede estar vacío
+
+---
+
+## 📝 Ejemplos de Uso Real
+
+### Escenario 1: Control Rápido (Recomendado)
+
+```
+PASOS:
+1. Abre la app (REGISTRO)
+2. Establece Turno: T1 (se mantiene)
+3. Establece T1 y T2 (ej: 10 y 5)
+4. Haz clic en "Código de Barras"
+5. ESCANEA código 1, ESCANEA código 2, ESCANEA código 3...
+6. Haz clic en "Registrar" para cada uno (o implementa auto-registro)
+
+TIEMPO: ~2 segundos por código de barras
+```
+
+### Escenario 2: Datos Variables
+
+```
+PASOS:
+1. Abre la app (REGISTRO)
+2. Escanea código de barras
+3. Establece Turno
+4. Establece cantidades T1, T2
+5. Haz clic en Registrar
+6. REPITE para cada código diferente
+
+TIEMPO: ~10-15 segundos por código
+```
+
+---
+
+## 🎯 Mejores Prácticas
+
+✅ **HACER:**
+- Mantén el lector a 10-20 cm del código
+- Apunta perpendicular al código
+- Usa códigos claros y sin daños
+- Escanea regularmente (antes de cambios de turno)
+- Haz backup semanal de datos (descarga CSV)
+
+❌ **NO HACER:**
+- Limpiar las lecturas manualmente (usa la opción eliminar)
+- Cambiar puertos USB durante funcionamiento
+- Desconectar el lector sin reiniciar el navegador
+- Dejar campos sin completar
+
+---
+
+## 🔗 Recursos Útiles
+
+### Lectores Recomendados (compatibles):
+- Symbol (Motorola/Zebra)
+- Honeywell
+- Datalogic
+- Intermec
+- Manual / Handheld USB
+
+### Prueba Online:
+Genera códigos de barras en: https://barcode.tec-it.com/
+
+---
+
+## 📞 Contacto para Configuración Personalizada
+
+Si necesitas:
+- Auto-registro al escanear
+- Integración con base de datos
+- Sincronización en nube
+- Soporte técnico especial
+
+Contacta al desarrollador para una versión personalizada.
+
+---
+
+**Versión:** 1.0
+**Última actualización:** Noviembre 2025

@@ -1,0 +1,287 @@
+================================================================================
+CAMBIOS REALIZADOS - TURNO AUTOMÁTICO POR HORARIO
+================================================================================
+
+Se ha modificado la aplicación para que el TURNO se seleccione AUTOMÁTICAMENTE
+según la hora del día.
+
+================================================================================
+✨ ¿QUÉ CAMBIÓ?
+================================================================================
+
+ANTES:
+  • Tenías que seleccionar T1 o T2 manualmente
+  • Se mantenía el turno que habías seleccionado
+  • Incómodo si cambias de turno durante el día
+
+AHORA:
+  • El turno se SELECCIONA AUTOMÁTICAMENTE según la hora
+  • T1: 3:00 AM a 1:59 PM (automático)
+  • T2: 2:00 PM a 11:59 PM (automático)
+  • Se actualiza cuando cambias de sección
+  • Hay un indicador visual mostrando el turno actual
+
+================================================================================
+🎯 HORARIOS DE TURNO
+================================================================================
+
+T1 (Color Azul 🔵):
+  ├─ Inicio: 3:00 AM (03:00)
+  ├─ Fin: 1:59 PM (13:59)
+  └─ Duración: ~11 horas
+
+T2 (Color Naranja 🟠):
+  ├─ Inicio: 2:00 PM (14:00)
+  ├─ Fin: 11:59 PM (23:59)
+  ├─ TAMBIÉN: 12:00 AM (00:00) a 2:59 AM (02:59) [continuación]
+  └─ Duración: ~10 horas (+ 3 horas del día anterior)
+
+EJEMPLO DE FUNCIONAMIENTO:
+
+10:30 AM → T1 automático ✓
+3:30 PM → T2 automático ✓
+11:45 PM → T2 automático ✓
+1:30 AM → T2 automático ✓
+2:30 AM → T2 automático ✓
+3:00 AM (siguiente día) → Cambia a T1 automático ✓
+
+================================================================================
+✨ CARACTERÍSTICAS PRINCIPALES
+================================================================================
+
+1. SELECCIÓN AUTOMÁTICA:
+   ✓ Al abrir la aplicación, T1 o T2 se seleccionan automáticamente
+   ✓ Según la hora actual del dispositivo
+   ✓ Sin intervención del usuario
+
+2. INDICADOR VISUAL:
+   ✓ Al lado de "Turno:" aparece 🕐 T1 (3:00 AM - 1:59 PM)
+   ✓ O 🕐 T2 (2:00 PM - 11:59 PM)
+   ✓ Color azul para T1, naranja para T2
+   ✓ Permite ver qué turno está activo
+
+3. ACTUALIZACIÓN AUTOMÁTICA:
+   ✓ Cuando cambias de sección (LISTADO → REGISTRO), se actualiza
+   ✓ Si han pasado horas, detecta el nuevo turno automáticamente
+   ✓ Ejemplo: Trabajas T1 por la mañana, al volver a las 3 PM es T2
+
+4. OVERRIDE MANUAL:
+   ✓ Aún puedes cambiar el turno manualmente si lo necesitas
+   ✓ Pero se recomienda dejar automático para evitar errores
+
+================================================================================
+⚡ FLUJO DE TRABAJO
+================================================================================
+
+ESCENARIO 1: Trabajas en el horario de T1 (mañana)
+
+8:00 AM:
+  └─ Abres la aplicación
+  └─ Automáticamente: Turno = T1 ✓
+  └─ Ves: 🕐 T1 (3:00 AM - 1:59 PM)
+  └─ Comienzas a escanear
+
+ESCENARIO 2: Trabajas pasadas las 3 PM
+
+3:05 PM:
+  └─ Abres la aplicación
+  └─ Automáticamente: Turno = T2 ✓
+  └─ Ves: 🕐 T2 (2:00 PM - 11:59 PM)
+  └─ Comienzas a escanear
+
+ESCENARIO 3: Cambio de turno a mitad del día
+
+1:30 PM:
+  └─ Trabajas con T1
+  └─ Vas a LISTADO para revisar datos
+  └─ Esperas 45 minutos
+  └─ Vuelves a REGISTRO (2:15 PM)
+  └─ Automáticamente: Turno = T2 ✓ (Se actualizó automáticamente)
+  └─ Ves: 🕐 T2 (2:00 PM - 11:59 PM)
+  └─ Continúas escaneando con T2
+
+================================================================================
+🔄 CAMBIOS TÉCNICOS
+================================================================================
+
+Archivos modificados:
+  1. app.js .............. Función de detección automática
+  2. index.html ......... Indicador visual
+
+CAMBIOS EN app.js:
+
+1. NUEVA FUNCIÓN: determinarTurnoAutomatico()
+   └─ Obtiene la hora actual
+   └─ Determina T1 o T2 según horarios
+   └─ Selecciona automáticamente
+   └─ Muestra indicador visual
+   └─ Guarda en localStorage
+
+2. MODIFICADO: cargarUI()
+   └─ Ahora llama a determinarTurnoAutomatico()
+   └─ En lugar de cargarTurnoGuardado()
+
+3. MODIFICADO: cambiarSeccion()
+   └─ Cuando vuelves a REGISTRO, actualiza turno automático
+   └─ También actualiza la hora
+
+CAMBIOS EN index.html:
+
+1. INDICADOR VISUAL
+   └─ Junto a la etiqueta "Turno:"
+   └─ Muestra 🕐 T1 (3:00 AM - 1:59 PM)
+   └─ O 🕐 T2 (2:00 PM - 11:59 PM)
+   └─ Texto con color azul para T1, naranja para T2
+
+2. LABELS MEJORADOS
+   └─ T1 ahora dice: "T1 (3:00 AM - 1:59 PM)"
+   └─ T2 ahora dice: "T2 (2:00 PM - 11:59 PM)"
+   └─ Más claro para el usuario
+
+================================================================================
+💡 VENTAJAS
+================================================================================
+
+✓ EVITA ERRORES:
+  • No hay confusión sobre qué turno es
+  • Se selecciona automáticamente según la hora real
+
+✓ MÁS RÁPIDO:
+  • No necesitas pensar en qué turno escoger
+  • Ya está seleccionado automáticamente
+
+✓ ACTUALIZACIÓN AUTOMÁTICA:
+  • Si trabajas pasadas las 3 PM, automáticamente cambia a T2
+  • No olvidas cambiar el turno
+
+✓ FLEXIBLE:
+  • Aún puedes cambiar manualmente si algo sale mal
+  • Por ejemplo: Si necesitas registrar un trabajo de otra hora
+
+✓ VISUAL:
+  • El indicador te muestra siempre qué turno está activo
+  • Y en qué horario aplica
+
+================================================================================
+⏰ TABLA DE HORARIOS
+================================================================================
+
+HORA     | TURNO | ESTADO
+---------|-------|--------
+00:00 AM | T2    | Noche (continuación)
+01:00 AM | T2    | Noche (continuación)
+02:00 AM | T2    | Noche (continuación)
+02:59 AM | T2    | Noche (continuación)
+03:00 AM | T1    | ⭐ CAMBIO a T1
+04:00 AM | T1    | Mañana
+08:00 AM | T1    | Mañana
+12:00 PM | T1    | Mediodía
+01:00 PM | T1    | Tarde temprana
+01:59 PM | T1    | Última hora de T1
+02:00 PM | T2    | ⭐ CAMBIO a T2
+03:00 PM | T2    | Tarde
+06:00 PM | T2    | Atardecer
+11:00 PM | T2    | Noche
+11:59 PM | T2    | Última hora de T2
+
+================================================================================
+✅ VERIFICACIÓN
+================================================================================
+
+Para verificar que todo funciona correctamente:
+
+PRUEBA 1: Horario de T1
+  1. Ajusta la hora de tu sistema a: 10:30 AM
+  2. Abre: index.html
+  3. Verifica que: Turno = T1 automáticamente ✓
+  4. Verifica que: Indicador dice "🕐 T1 (3:00 AM - 1:59 PM)" ✓
+
+PRUEBA 2: Horario de T2
+  1. Ajusta la hora de tu sistema a: 5:00 PM
+  2. Abre: index.html
+  3. Verifica que: Turno = T2 automáticamente ✓
+  4. Verifica que: Indicador dice "🕐 T2 (2:00 PM - 11:59 PM)" ✓
+
+PRUEBA 3: Horario madrugada
+  1. Ajusta la hora de tu sistema a: 1:30 AM
+  2. Abre: index.html
+  3. Verifica que: Turno = T2 automáticamente ✓
+  4. Verifica que: Indicador dice "🕐 T2 (2:00 PM - 11:59 PM) (día anterior)" ✓
+
+PRUEBA 4: Cambio de turno
+  1. Abre con hora: 1:30 PM (T1)
+  2. Ve a LISTADO
+  3. Cambia hora del sistema a: 2:15 PM
+  4. Vuelve a REGISTRO
+  5. Verifica que: Turno cambió a T2 automáticamente ✓
+
+Si todas las pruebas pasan: ¡CORRECTO! ✓
+
+================================================================================
+⚙️ CONFIGURACIÓN PERSONALIZADA
+================================================================================
+
+Si necesitas cambiar los horarios:
+
+Busca en app.js la función: determinarTurnoAutomatico()
+Verás estas líneas:
+
+  if (hora >= 3 && hora < 14) {      // T1 desde 3 (3:00 AM) a 13 (1:59 PM)
+      turnoAutomatico = 'T1';
+  } else if (hora >= 14 && hora < 24) { // T2 desde 14 (2:00 PM) a 23 (11:59 PM)
+      turnoAutomatico = 'T2';
+  }
+
+Para cambiar:
+  • Modifica 3 para inicio de T1 (3 = 3 AM)
+  • Modifica 14 para inicio de T2 (14 = 2 PM)
+
+EJEMPLO: Si quieres T1 de 6:00 AM a 3:00 PM:
+  • Cambia 3 por 6
+  • Cambia 14 por 15
+
+Contacta si necesitas hacer esto.
+
+================================================================================
+🆚 COMPARATIVA
+================================================================================
+
+ANTES (Manual):
+  • 10:00 AM: Selecciona T1 manualmente
+  • 3:00 PM: Cambias a T2 manualmente
+  • Riesgo: Olvidar cambiar turno
+
+AHORA (Automático):
+  • 10:00 AM: T1 automático ✓
+  • 3:00 PM: T2 automático ✓
+  • Seguro: No hay errores posibles
+
+================================================================================
+📝 NOTAS IMPORTANTES
+================================================================================
+
+1. LA HORA USA LA HORA DEL DISPOSITIVO:
+   • Asegúrate de tener la hora correcta en tu PC/dispositivo
+   • Si tienes la hora incorrecta, el turno será incorrecto
+
+2. PUEDES CAMBIAR MANUALMENTE:
+   • Aún puedes hacer clic en el selector de turno
+   • Y elegir T1 o T2 manualmente
+   • Pero se recomienda dejar automático
+
+3. SE ACTUALIZA AL CAMBIAR DE SECCIÓN:
+   • Si trabajas de 1:30 PM a 3:30 PM sin cambiar de sección
+   • El turno no cambiará automáticamente
+   • Cuando cambies de sección (ir a LISTADO), se actualizará
+
+4. SE GUARDA EN MEMORIA LOCAL:
+   • El turno seleccionado se recuerda
+   • Si cierras y abres la app, se vuelve a detectar automáticamente
+
+================================================================================
+
+Cambios completados: ✓
+Fecha: Noviembre 2025
+Estado: LISTO PARA USAR
+
+================================================================================

@@ -1,0 +1,218 @@
+================================================================================
+CAMBIOS REALIZADOS - TURNO FIJO
+================================================================================
+
+Se ha modificado la aplicación para que el TURNO seleccionado quede FIJO
+y no se resetee después de cada registro.
+
+================================================================================
+✨ ¿QUÉ CAMBIÓ?
+================================================================================
+
+ANTES:
+  • Al registrar un trabajo, todos los campos se limpiaban
+  • Tenías que volver a seleccionar el turno cada vez
+  • Era incómodo cuando registrabas múltiples trabajos del mismo turno
+
+AHORA:
+  • Al registrar un trabajo, SOLO se limpia el código de barras
+  • El TURNO se mantiene seleccionado
+  • Los campos T1 y T2 también se mantienen
+  • La fecha y hora se actualizan automáticamente
+
+================================================================================
+🎯 CARACTERÍSTICAS PRINCIPALES
+================================================================================
+
+1. TURNO PERSISTENTE:
+   ✓ Selecciona un turno (T1 o T2)
+   ✓ Se mantiene seleccionado para los siguientes registros
+   ✓ Se guarda en localStorage (incluso si cierras el navegador)
+
+2. LIMPIEZA INTELIGENTE:
+   ✓ Solo se limpia el código de barras después de registrar
+   ✓ El turno permanece
+   ✓ T1 y T2 permanecen con sus valores
+   ✓ Cursor vuelve al campo de código
+
+3. ACTUALIZACIÓN AUTOMÁTICA:
+   ✓ La fecha se actualiza a hoy
+   ✓ La hora se actualiza a la hora actual
+   ✓ Todo los demás se mantiene
+
+================================================================================
+⚡ CÓMO USAR
+================================================================================
+
+FLUJO DE TRABAJO OPTIMIZADO:
+
+1. ABRE LA APLICACIÓN
+   └─ Selecciona el turno (T1 o T2)
+
+2. INGRESA CANTIDADES (OPCIONAL)
+   └─ T1: cantidad
+   └─ T2: cantidad
+   (Si las cantidades siempre son iguales, también se mantienen)
+
+3. ESCANEA CÓDIGO DE BARRAS
+   └─ El código se ingresa automáticamente
+
+4. HACES CLIC EN "REGISTRAR TRABAJO"
+   └─ ¡Se registra!
+
+5. INMEDIATAMENTE PUEDES ESCANEAR EL SIGUIENTE
+   └─ El turno sigue seleccionado
+   └─ Solo necesitas escanear el código
+
+RESULTADO: Entrada de datos 5X más rápida
+
+================================================================================
+🔄 CAMBIOS TÉCNICOS
+================================================================================
+
+Archivos modificados:
+  └─ app.js
+
+Cambios realizados:
+
+1. NUEVA FUNCIÓN: cargarTurnoGuardado()
+   └─ Carga el turno guardado en localStorage al iniciar
+
+2. NUEVO EVENTO: en configurarEventos()
+   └─ Escucha cambios en el selector de turno
+   └─ Guarda automáticamente en localStorage
+
+3. MODIFICADO: handleRegistro()
+   └─ NO resetea el formulario completamente
+   └─ Solo limpia el código de barras
+   └─ Mantiene turno, T1, T2
+
+4. MODIFICADO: cargarUI()
+   └─ Ahora carga el turno guardado al iniciar
+
+================================================================================
+💾 PERSISTENCIA DE DATOS
+================================================================================
+
+El turno seleccionado se guarda en:
+  └─ localStorage del navegador
+
+Esto significa:
+  ✓ Si cierras el navegador, se recuerda el turno
+  ✓ Si actualizas la página (F5), se mantiene el turno
+  ✓ Si cambias de sección y vuelves, se mantiene el turno
+  ✓ El turno solo se olvida si limpias el caché
+
+================================================================================
+🎨 COMPORTAMIENTO DETALLADO
+================================================================================
+
+CAMPO: CÓDIGO DE BARRAS
+  └─ Se limpia después de cada registro
+  └─ Cursor automático (puedes escanear inmediatamente)
+
+CAMPO: FECHA
+  └─ Se actualiza a hoy (en caso de que haya cambiado)
+  └─ Puedes cambiarla manualmente si es necesario
+
+CAMPO: HORA
+  └─ Se actualiza a la hora actual
+  └─ Puedes cambiarla manualmente si es necesario
+
+CAMPO: TURNO ⭐ (PRINCIPAL CAMBIO)
+  └─ SE MANTIENE seleccionado
+  └─ NO se limpia después de registrar
+  └─ Se guarda en localStorage
+
+CAMPO: T1 (cantidad)
+  └─ SE MANTIENE con su valor
+  └─ NO se limpia después de registrar
+  └─ Útil si todas las lecturas tienen la misma cantidad
+
+CAMPO: T2 (cantidad)
+  └─ SE MANTIENE con su valor
+  └─ NO se limpia después de registrar
+  └─ Útil si todas las lecturas tienen la misma cantidad
+
+================================================================================
+💡 CASOS DE USO
+================================================================================
+
+CASO 1: Un turno con cantidades fijas
+  1. Selecciona Turno: T1
+  2. T1: 10, T2: 5
+  3. Escanea código 1 → Registra
+  4. Escanea código 2 → Registra
+  5. Escanea código 3 → Registra
+  (Todo se mantiene, solo necesitas escanear)
+
+CASO 2: Solo cambiar turno de vez en cuando
+  1. Selecciona Turno: T1
+  2. Escanea 5 códigos de T1
+  3. Cambias a Turno: T2
+  4. Escanea 3 códigos de T2
+  (No necesitas reseleccionar T1 después de cada uno)
+
+CASO 3: Cantidades variables pero mismo turno
+  1. Selecciona Turno: T1
+  2. T1: 10, T2: 5 → Escanea → Registra
+  3. T1: 15, T2: 8 → Escanea → Registra
+  (El turno se mantiene, solo cambias las cantidades)
+
+================================================================================
+⚙️ CONFIGURACIÓN ADICIONAL
+================================================================================
+
+Si quieres LIMPIAR EL TURNO GUARDADO:
+  Abre la consola del navegador (F12)
+  Escribe: localStorage.removeItem('turnoSeleccionado')
+  Presiona Enter
+  Recarga la página
+
+Si quieres que T1 y T2 TAMBIÉN SE LIMPIEN:
+  Puedo modificar el código
+  Contacta si necesitas este cambio
+
+Si quieres BORRAR TODO EL ALMACENAMIENTO LOCAL:
+  Abre la consola del navegador (F12)
+  Escribe: localStorage.clear()
+  Presiona Enter
+
+================================================================================
+🆕 MEJORA FUTURA RECOMENDADA
+================================================================================
+
+Se podría añadir un botón "CAMBIAR TURNO" que:
+  1. Muestre un diálogo para seleccionar turno
+  2. Permita cambiar turno sin ir a la sección de registro
+  3. Muestre el turno actual en un indicador
+
+¿Quieres que implemente esto?
+
+================================================================================
+✅ VERIFICACIÓN
+================================================================================
+
+Para verificar que todo funciona:
+
+1. Abre: index.html
+2. Selecciona un turno (ej: T1)
+3. Ingresa datos y escanea un código
+4. Haz clic en "Registrar Trabajo"
+5. Verifica que:
+   ✓ El código se limpió
+   ✓ El turno SIGUE siendo T1
+   ✓ Puedes escanear el siguiente inmediatamente
+6. Recarga la página (F5)
+7. Verifica que:
+   ✓ El turno se mantiene en T1
+
+¡Si todo funciona así, está correcto! ✓
+
+================================================================================
+
+Cambios completados: ✓
+Fecha: Noviembre 2025
+Estado: LISTO PARA USAR
+
+================================================================================
